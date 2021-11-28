@@ -32,9 +32,15 @@ const login = async (phone,password) => {
     
     }
 
+    const getCustomer = async (id,type) =>{
+        let resp = await customerModel.getCustomer(id,type)
+        return resp;
+    }
+
 
 module.exports = {
     isPhoneExist,
     register,
-    login
+    login,
+    getCustomer
 }

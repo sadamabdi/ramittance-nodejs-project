@@ -18,6 +18,15 @@ const register = handleAsync(async (req, res) => {
 }
 
 });
+
+const getCustomer = async (req, res) =>{
+    let result = await customerService.getCustomer(req.params.id,req.params.type);
+    console.log(result);
+    res.status(status.OK)
+    .send(new ApiResponse(status.OK, 'customer info', result))
+
+}
+
 const login = handleAsync(async (req, res) => {
 
    
@@ -30,5 +39,6 @@ const login = handleAsync(async (req, res) => {
 
 module.exports = {
     register,
-    login
+    login,
+    getCustomer
 }

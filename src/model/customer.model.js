@@ -21,6 +21,19 @@ const getCustomerByPhoneAndPassword = async (phone,password) => {
     return await db.executeQuery(query);
 }
 
+const getCustomer = async (id,type) =>{
+  let query =''
+  if (type == 'equal'){
+   query = `select c.customerid,currency_code,customername,co.countryid,countryname,rates  from customers c,country co,currencies cu where 
+  c.countryid = co.countryid and co.countryid = cu.countryid and c.customerid = ${id}`
+  }
+  else{
+   query = `select c.customerid,currency_code,customername,co.countryid,countryname,rates  from customers c,country co,currencies cu where 
+  c.countryid = co.countryid and co.countryid = cu.countryid and c.customerid != ${id}`
+  }
+  return db.executeQuery(query)
+}
+
 // is email exists
 const isPhoneExist = async (phone) => {
   let qry = `select *from customers where phone = '${phone}'`;
@@ -31,5 +44,6 @@ const isPhoneExist = async (phone) => {
 module.exports = {
     create,
     getCustomerByPhoneAndPassword,
-    isPhoneExist
+    isPhoneExist,
+    getCustomer
 }
